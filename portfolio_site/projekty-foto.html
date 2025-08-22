@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Přemysl Horák – Fotografie</title>
+
+    <!-- Globální styly -->
+    <link rel="stylesheet" href="style.css" />
+    <!-- Specifické styly pro foto stránku (galerie/lightbox/hero text) -->
+    <link rel="stylesheet" href="photo.css" />
+  </head>
+
+  <body class="page-project">
+    <!-- Custom cursor (aktivuje se jen pokud ho JS úspěšně inicializuje) -->
+    <div id="cursor"></div>
+    <div id="cursor-follower"></div>
+
+    <!-- Header -->
+    <header id="siteHeader">
+      <nav class="container" role="navigation" aria-label="Hlavní navigace">
+        <a href="index.html" class="logo" aria-label="Domů">PH</a>
+
+        <button
+          class="mobile-menu"
+          id="mobileMenu"
+          type="button"
+          aria-label="Otevřít navigaci"
+          aria-controls="navLinksMobile"
+          aria-expanded="false"
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </button>
+
+        <!-- Desktop menu -->
+        <ul
+          class="nav-links nav-links--desktop"
+          id="navLinksDesktop"
+          role="menubar"
+        >
+          <li role="none" class="dropdown" id="dropdown">
+            <a
+              href="#"
+              class="dropdown-toggle"
+              id="dropdownToggle"
+              role="button"
+              aria-haspopup="true"
+              aria-expanded="false"
+              aria-controls="dropdownMenu"
+            >
+              Moje práce
+            </a>
+            <ul class="dropdown-menu" id="dropdownMenu" role="menu">
+              <li role="none">
+                <a role="menuitem" href="projekty-uiux.html">UI/UX</a>
+              </li>
+              <li role="none">
+                <a role="menuitem" href="projekty-branding.html">Branding</a>
+              </li>
+              <li role="none">
+                <a role="menuitem" href="design.html">Grafický design</a>
+              </li>
+              <li role="none">
+                <a role="menuitem" href="projekty-foto.html" aria-current="page"
+                  >Fotografie</a
+                >
+              </li>
+            </ul>
+          </li>
+          <li role="none">
+            <a role="menuitem" href="contact.html">Kontakt</a>
+          </li>
+        </ul>
+
+        <!-- Mobilní menu -->
+        <ul class="nav-links nav-links--mobile" id="navLinksMobile" hidden>
+          <li><a href="projekty-uiux.html">UI/UX</a></li>
+          <li><a href="projekty-branding.html">Branding</a></li>
+          <li><a href="design.html">Grafický design</a></li>
+          <li>
+            <a href="projekty-foto.html" aria-current="page">Fotografie</a>
+          </li>
+          <li class="separator" aria-hidden="true"></li>
+          <li><a href="contact.html">Kontakt</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Main -->
+    <main>
+      <!-- FOTO – HERO -->
+      <section class="photo-hero" id="projekt-foto-hero">
+        <div class="ph-container">
+          <div class="container">
+            <h1 class="hero-title">Jsou mezi námi</h1>
+          </div>
+
+          <div class="ph-kicker">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M15.281 10.195V15.82H9.656M15.281 15.82L9.187 9.726M17.625 21.5H6.375A3.375 3.375 0 0 1 3 18.125V6.875A3.375 3.375 0 0 1 6.375 3.5h11.25A3.375 3.375 0 0 1 21 6.875v11.25A3.375 3.375 0 0 1 17.625 21.5Z"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            Fotografický dokument ze života obyvatel Domova sv. Anežky
+          </div>
+
+          <div class="ph-prose">
+            <p>
+              Soubor fotografií nabízí surový, a přitom citlivý pohled do
+              každodennosti obyvatel azylového domu na Svatém Kopečku u
+              Olomouce, který provozuje <strong>Charita Olomouc.</strong>
+            </p>
+            <p>
+              Zachycuje okamžiky ticha, osamění, sdílení i naděje, bez patosu a
+              bez přikrášlování. Fotografie vznikaly postupně během několika let
+              mého působení v Domově sv. Anežky.
+            </p>
+            <p>
+              Lidé na fotografiích nejsou objekty. Jsou to jména, příběhy,
+              osobnosti.
+            </p>
+            <p class="popis">
+              <em
+                >(Soubor fotografií byl nafocen pomocí mobilní aplikace
+                Hipstamatic)
+              </em>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- GALERIE (filmstrip / náhledy) -->
+      <section class="photo-section">
+        <div
+          class="gallery gallery--filmstrip"
+          data-gallery="filmstrip"
+          aria-label="Film strip fotogalerie"
+        >
+          <figure class="g-item" data-caption="Závist">
+            <img src="holub.avif" alt="Závist" loading="lazy" />
+          </figure>
+          <figure class="g-item" data-caption="Spoření na horší časy">
+            <img src="sporeni.avif" alt="Uložení peněz" loading="lazy" />
+          </figure>
+          <figure class="g-item" data-caption="Čáry života">
+            <img src="cáry zivita.avif" alt="Čáry života" loading="lazy" />
+          </figure>
+          <figure class="g-item" data-caption="Otázky na tělo">
+            <img src="czerny.avif" alt="Otázky na tělo" loading="lazy" />
+          </figure>
+          <figure class="g-item" data-caption="Hladové okno">
+            <img src="okno.avif" alt="Výdej stravy" loading="lazy" />
+          </figure>
+          <figure class="g-item" data-caption="Siesta">
+            <img src="Siesta.avif" alt="Odpolední cigareta" loading="lazy" />
+          </figure>
+          <figure class="g-item" data-caption="Práce s nadhledem">
+            <img src="Nadhled.avif" alt="Práce s nadhledem" loading="lazy" />
+          </figure>
+          <figure class="g-item" data-caption="Žízeň">
+            <img src="Zizen.avif" alt="Harm reduction" loading="lazy" />
+          </figure>
+          <figure class="g-item" data-caption="Pojedeme?">
+            <img src="Pojedeme.avif" alt="Pojedeme" loading="lazy" />
+          </figure>
+          <figure class="g-item" data-caption="Trojitá koncentrace">
+            <img
+              src="trojitakoncentrace.avif"
+              alt="Šachová partie"
+              loading="lazy"
+            />
+          </figure>
+          <figure class="g-item" data-caption="Chvíle souznění">
+            <img
+              src="Chvíle souznění.avif"
+              alt="šachová partie"
+              loading="lazy"
+            />
+          </figure>
+          <figure class="g-item" data-caption="Člověče já hraju">
+            <img src="člověče.avif" alt="Trávení volného času" loading="lazy" />
+          </figure>
+          <figure class="g-item" data-caption="Psí poslání">
+            <img src="psi.avif" alt="Canisterapie" loading="lazy" />
+          </figure>
+          <figure class="g-item" data-caption="Veselé Velikonoce">
+            <img src="velikonoce.avif" alt="Velikonoce" loading="lazy" />
+          </figure>
+          <figure class="g-item" data-caption="Co se skrývá ve straých zdech">
+            <img src="monika.avif" alt="Žena s cigaretou" loading="lazy" />
+          </figure>
+          <figure class="g-item" data-caption="Nashledanou">
+            <img src="Nashledanou.avif" alt="Nashledanou" loading="lazy" />
+          </figure>
+        </div>
+      </section>
+
+      <!-- Navigace mezi projekty -->
+      <section class="section">
+        <div class="project-nav">
+          <a class="btn--pill btn--prev" href="index.html">zpět domů</a>
+          <a class="btn--pill btn--next" href="projekty-branding.html"
+            >branding</a
+          >
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-container">
+        <div class="footer-content">
+          <h2 class="footer-name">Přemysl Horák</h2>
+          <p class="footer-description">
+            UI/UX, webdesign, branding a grafika z Olomouce.
+          </p>
+
+          <div class="social-icons">
+            <a
+              class="social-link"
+              href="https://www.behance.net/dobryUX"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Behance – Přemysl Horák"
+              title="Behance"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                role="img"
+              >
+                <path
+                  d="M8.09 10.95c1.26-.37 2.12-1.52 2.12-2.85 0-2.44-1.82-3.1-4.14-3.1H0v12h6.55c2.61 0 4.57-1.3 4.57-3.7 0-1.69-.95-2.92-3.03-3.34zM3.57 6.45h2.04c.84 0 1.61.26 1.61 1.2 0 1-.77 1.3-1.61 1.3H3.57V6.45zm2.02 7.14H3.57v-2.69h2.12c1.03 0 1.82.38 1.82 1.41 0 1.04-.82 1.28-1.92 1.28zM24 8.69h-5.96v-1.2H24v1.2zm-2.84 1.35c-3.09 0-5.03 2.03-5.03 5.04 0 3 1.94 5.04 5.03 5.04 2.37 0 4.07-1.14 4.56-3.2h-2.31c-.28.9-1.22 1.39-2.25 1.39-1.67 0-2.57-1.02-2.57-2.66h7.2c.05-.27.08-.56.08-.86 0-2.73-1.93-4.75-4.68-4.75zm0 2.04c1.28 0 2.3.77 2.3 2.2h-4.68c.2-1.43 1.16-2.2 2.38-2.2z"
+                />
+              </svg>
+            </a>
+
+            <a
+              href="https://www.linkedin.com/in/přemysl-horák-0590a5326/"
+              class="social-link"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn – Přemysl Horák"
+              title="LinkedIn"
+            >
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+                />
+              </svg>
+            </a>
+          </div>
+
+          <div class="footer-copyright">© 2025 All Rights Reserved</div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- LIGHTBOX GALLERY – skeleton (na konci body) -->
+    <div
+      class="lightbox"
+      aria-hidden="true"
+      role="dialog"
+      aria-label="Zvětšená fotografie"
+    >
+      <button class="lb-close" aria-label="Zavřít" title="Zavřít">
+        &times;
+      </button>
+      <button class="lb-prev" aria-label="Předchozí" title="Předchozí">
+        &#10094;
+      </button>
+      <button class="lb-next" aria-label="Další" title="Další">&#10095;</button>
+      <div class="lb-track" aria-live="polite"></div>
+    </div>
+
+    <!-- Hlavní skript (dropdown, mobilní menu, cursor, lightbox) -->
+    <script src="script.js" defer></script>
+  </body>
+</html>

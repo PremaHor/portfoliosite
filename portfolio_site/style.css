@@ -1,0 +1,2050 @@
+/* ========================================
+   PŘEMYSL HORÁK – PORTFOLIO CSS (CLEAN)
+   ======================================== */
+
+/* ------------------------------
+   1) VARIABLES
+------------------------------ */
+:root {
+  --primary-color: #ed6a5a;
+  --text-dark: #1f2937;
+  --text-muted: #999999;
+
+  --bg-light: #f8fafc;
+  --glass-bg: rgba(255, 255, 255, 0.9);
+  --glass-border: rgba(0, 0, 0, 0.06);
+
+  --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.1);
+  --card-shadow: 0 4px 20px rgba(17, 16, 16, 0.08);
+  --card-shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.15);
+
+  --transition: all 0.3s ease;
+
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 14px;
+  --radius: 14px;
+  --field-border: #e5e7eb;
+  --container-max: 1200px;
+}
+
+/* ------------------------------
+   2) RESET & BASE
+------------------------------ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #fff;
+  color: var(--text-dark);
+  cursor: none; /* custom cursor – vypne se na touch níže */
+}
+
+main {
+  flex: 1;
+}
+
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--spacing-sm);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+}
+
+/* ------------------------------
+   3) CUSTOM CURSOR
+------------------------------ */
+#cursor,
+#cursor-follower {
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 9999;
+  transition: opacity 0.2s ease;
+}
+#cursor {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-dark);
+}
+#cursor-follower {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  outline: 2px solid rgba(0, 0, 0, 0.25);
+  outline-offset: -2px;
+}
+#cursor.hover {
+  transform: translate(-50%, -50%) scale(1.2);
+}
+#cursor-follower.hover {
+  outline-width: 3px;
+}
+#cursor.click,
+#cursor-follower.click {
+  opacity: 0.6;
+}
+
+/* hide on touch / coarse pointer */
+.no-custom-cursor #cursor,
+.no-custom-cursor #cursor-follower {
+  display: none !important;
+}
+@media (hover: none), (pointer: coarse) {
+  body {
+    cursor: auto;
+  }
+  #cursor,
+  #cursor-follower {
+    display: none !important;
+  }
+}
+/* ===== Custom cursor – CSS ===== */
+:root {
+  /* Barvy */
+  --cursor-primary: var(--primary-color, #ed6a5a); /* na světlém podkladu */
+  --cursor-contrast: #ffffff; /* na tmavém podkladu */
+
+  /* Velikosti a styl */
+  --cursor-dot-size: 8px; /* tečka */
+  --cursor-ring-size: 32px; /* prstenec */
+  --cursor-ring-width: 2px; /* tloušťka prstence */
+
+  /* Animace */
+  --cursor-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Skryj systémový kurzor jen, když je custom aktivní (JS přidá .has-custom-cursor) */
+.has-custom-cursor,
+.has-custom-cursor * {
+  cursor: none !important;
+}
+
+/* Pokud se custom kurzor nespouští (touch/ReduceMotion), tyto prvky nijak neukazuj */
+.no-custom-cursor #cursor,
+.no-custom-cursor #cursor-follower {
+  display: none !important;
+}
+
+/* Základní prvky kurzoru */
+#cursor,
+#cursor-follower {
+  position: fixed;
+  left: 0;
+  top: 0;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 1;
+  will-change: transform, left, top, background-color, border-color, opacity;
+}
+
+/* Tečka */
+#cursor {
+  width: var(--cursor-dot-size);
+  height: var(--cursor-dot-size);
+  background: var(--cursor-primary);
+  border-radius: 50%;
+  transition: background-color 0.15s ease, transform 0.12s var(--cursor-ease),
+    opacity 0.2s ease;
+}
+
+/* Prstenec */
+#cursor-follower {
+  width: var(--cursor-ring-size);
+  height: var(--cursor-ring-size);
+  border: var(--cursor-ring-width) solid var(--cursor-primary);
+  border-radius: 50%;
+  transition: border-color 0.15s ease, transform 0.32s var(--cursor-ease),
+    opacity 0.2s ease;
+  /* Volitelné: jemné rozostření pozadí v prstenci (funguje v moderních prohlížečích) */
+  /* backdrop-filter: blur(1.5px); */
+}
+
+/* === Stavy: hover & click === */
+#cursor.hover {
+  transform: translate(-50%, -50%) scale(1.35);
+}
+#cursor.click {
+  transform: translate(-50%, -50%) scale(0.9);
+}
+
+#cursor-follower.hover {
+  transform: translate(-50%, -50%) scale(1.08);
+}
+#cursor-follower.click {
+  transform: translate(-50%, -50%) scale(0.95);
+}
+
+/* === Kontrastní verze na tmavém podkladu (zapíná JS třídou .on-dark) === */
+#cursor.on-dark {
+  background: var(--cursor-contrast);
+}
+#cursor-follower.on-dark {
+  border-color: var(--cursor-contrast);
+}
+
+/* Bez animací pro uživatele s reduce motion (stejně to JS nespustí, ale pro jistotu) */
+@media (prefers-reduced-motion: reduce) {
+  #cursor,
+  #cursor-follower {
+    transition: none !important;
+  }
+}
+
+/* ===== (VOLITELNĚ) Ultrarychlé řešení bez JS: inverze vůči podkladu =====
+#cursor, #cursor-follower{ mix-blend-mode: difference; }
+#cursor{ background: #fff; }
+#cursor-follower{ border-color: #fff; }
+*/
+
+/* ------------------------------
+   4) HEADER & NAVIGATION
+------------------------------ */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: var(--spacing-sm) 0;
+  background: var(--bg-light);
+  border-bottom: 1px solid #f0f0f0;
+}
+nav.container {
+  position: relative;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px); /* Safari */
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--shadow-soft);
+  transition: var(--transition);
+}
+nav.container:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Logo */
+.logo {
+  position: relative;
+  font-weight: 800;
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: linear-gradient(90deg, #ed6a5a, #c48651, #dd4d3d, #ac3a2b);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientShift 6s ease infinite;
+  padding: 4px 6px;
+  transition: transform 0.3s ease;
+}
+.logo::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  height: 3px;
+  width: 100%;
+  background: inherit;
+  border-radius: 2px;
+  transform: translateX(-50%) scaleX(0);
+  transition: transform 0.3s ease;
+}
+.logo:hover {
+  transform: scale(1.1) rotate(-1deg);
+}
+.logo:hover::after {
+  transform: translateX(-50%) scaleX(1);
+}
+@keyframes gradientShift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Menu */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: var(--spacing-lg);
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+.nav-links a {
+  text-decoration: none;
+  color: var(--text-dark);
+  font-size: 16px;
+  font-weight: 500;
+  padding: 0.8rem 1.2rem;
+  border-radius: var(--radius-md);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.nav-links a::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -120%;
+  width: 120%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  transition: left 0.5s;
+}
+.nav-links a:hover::before {
+  left: 100%;
+}
+.nav-links a:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.nav-links--desktop {
+  display: flex;
+}
+.nav-links--mobile {
+  display: none;
+}
+
+/* Focus-visible pro lepší klávesovou navigaci */
+.nav-links a:focus-visible,
+.dropdown-menu a:focus-visible,
+.btn:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 3px;
+  box-shadow: none;
+}
+
+/* Dropdown */
+.dropdown {
+  position: relative;
+}
+.dropdown-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.dropdown-toggle::after {
+  content: "↓";
+  margin-left: 0.25rem;
+  font-size: 0.8rem;
+  transition: transform 0.3s ease;
+}
+.dropdown.open .dropdown-toggle::after {
+  transform: rotate(180deg);
+}
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px); /* Safari */
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  list-style: none;
+  padding: 0.5rem;
+  min-width: 220px;
+  box-shadow: var(--shadow-soft);
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px) scale(0.95);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+}
+.dropdown.open .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+.dropdown-menu a {
+  display: block;
+  padding: 0.6rem 0.75rem;
+  color: var(--text-dark);
+  border-radius: 10px;
+  font-size: 15px;
+  text-decoration: none;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+.dropdown-menu a:hover {
+  background: rgba(0, 0, 0, 0.05);
+  transform: translateX(4px);
+}
+
+/* Hamburger */
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: var(--transition);
+}
+.mobile-menu span {
+  width: 24px;
+  height: 3px;
+  background: var(--primary-color);
+  border-radius: 2px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.mobile-menu.active span:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+.mobile-menu.active span:nth-child(2) {
+  opacity: 0;
+  transform: scale(0);
+}
+.mobile-menu.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* Mobile panel */
+@media (max-width: 768px) {
+  nav.container {
+    padding: 1rem;
+  }
+  .nav-links--desktop {
+    display: none;
+  }
+  .mobile-menu {
+    display: flex;
+  }
+  .nav-links--mobile {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 16px;
+    top: calc(100% + 12px);
+    min-width: 260px;
+    padding: 10px;
+    gap: 6px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px); /* Safari */
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    box-shadow: var(--shadow-soft);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px) scale(0.98);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+    z-index: 1001;
+  }
+  .nav-links--mobile.show {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+  .dropdown-menu {
+    display: none !important;
+  }
+}
+
+/* ------------------------------
+   5) HERO
+------------------------------ */
+.hero {
+  padding: 100px 0;
+  text-align: left;
+}
+
+.hero-title {
+  font-size: clamp(2rem, 8vw, 80px);
+  margin-bottom: 1rem;
+  color: #000;
+  font-family: "Work Sans", sans-serif;
+  font-weight: 300;
+  line-height: 1.1;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 1s ease-out forwards 0.3s;
+}
+.hero-meta,
+.hero-subtitle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 18px;
+  color: #7c898b;
+  margin-top: 2rem;
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: fadeInLeft 1s ease-out forwards 1s;
+}
+.hero-meta .icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fadeInLeft {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ------------------------------
+   6) GENERIC SECTIONS & GRID
+------------------------------ */
+.section {
+  padding: 4rem 0;
+}
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.section-subtitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+.muted {
+  color: var(--text-muted);
+}
+
+.grid {
+  display: grid;
+  gap: 2rem;
+}
+.grid--2cols {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+.grid--3cols {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+.grid--gap-lg {
+  gap: 3rem;
+}
+
+/* ------------------------------
+   7) MEDIA / CARDS
+------------------------------ */
+.media {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  /* odstraněno obří margin-top:160px, dělal zbytečné rozestupy */
+  margin: 0;
+}
+.media img {
+  width: 100%;
+  height: auto;
+  display: block;
+  background-color: #e5e7eb;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  box-shadow: var(--card-shadow);
+}
+.media--wide img {
+  width: 100%;
+}
+.caption {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--card-shadow-hover);
+}
+
+/* ------------------------------
+   8) CHECKLIST
+------------------------------ */
+.checklist {
+  list-style: none;
+  margin: 32px 0 20px;
+  padding: clamp(24px, 3vw, 40px);
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+.checklist li {
+  position: relative;
+  padding-left: 2rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+}
+.checklist li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--primary-color);
+  font-weight: 700;
+}
+@media (max-width: 768px) {
+  .checklist {
+    padding: 24px 28px;
+  }
+}
+
+/* ------------------------------
+   9) PROJECT PAGE LAYOUT
+------------------------------ */
+.page-project .project-content {
+  padding-bottom: 96px;
+}
+
+.page-project .project-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 30px;
+  align-items: start;
+  margin: 48px 20px 64px;
+}
+.page-project .project-grid--alt {
+  grid-template-columns: 1fr 1fr;
+}
+
+.page-project .feature-card {
+  margin-top: 40px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  padding: 18px 20px;
+}
+.page-project .feature-card--compact {
+  max-width: 600px;
+}
+.page-project .feature-card__head {
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 6px;
+  color: var(--text-dark);
+  font-weight: 600;
+}
+.page-project .feature-card__sub {
+  margin: 2px 0 10px;
+  color: #7c898b;
+  font-size: 0.95rem;
+}
+.page-project .mockup__title {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  color: var(--text-dark);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.page-project .mockup__frame,
+.page-project .wide-mockup__frame {
+  background: #d9d9d9;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+.page-project .mockup__frame img,
+.page-project .wide-mockup__frame img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  background: #fff;
+}
+.page-project .mockup__frame--populo {
+  aspect-ratio: 609/1060;
+}
+.page-project .mockup__frame--tall {
+  aspect-ratio: 648/2048;
+}
+
+.page-project .wide-mockup {
+  margin: 20px 0 64px;
+}
+.page-project .wide-mockup__frame {
+  aspect-ratio: 16/9;
+}
+
+@media (max-width: 1024px) {
+  .page-project .project-grid,
+  .page-project .project-grid--alt {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .page-project .mockup__frame--populo,
+  .page-project .mockup__frame--tall {
+    max-height: 85vh;
+  }
+}
+.page-project .project-note p {
+  color: #7c898b;
+  line-height: 1.6;
+  margin: 8px 0 0;
+}
+
+/* ------------------------------
+   10) PORTFOLIO (GRID)
+------------------------------ */
+.portfolio {
+  padding: 60px 0;
+}
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+.portfolio-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  box-shadow: var(--card-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.portfolio-item img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.portfolio-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, transparent 60%);
+  z-index: 1;
+}
+.portfolio-category {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  padding: 6px 12px;
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-radius: 6px;
+  z-index: 2;
+}
+.portfolio-item:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--card-shadow-hover);
+}
+.portfolio-item:hover img {
+  transform: scale(1.05);
+}
+
+/* ------------------------------
+   11) ABOUT
+------------------------------ */
+.about {
+  padding: clamp(3rem, 8vw, 60px) 0;
+}
+.about-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-lg);
+  align-items: flex-start;
+}
+.about-image {
+  width: clamp(150px, 25vw, 200px);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.about-text {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  color: #000;
+  font-family: "Work Sans", sans-serif;
+  font-size: clamp(1rem, 2.5vw, 23.04px);
+  font-weight: 400;
+  line-height: 1.5;
+}
+.about-text h2 {
+  font-size: clamp(2rem, 6vw, 80px);
+  font-weight: 400;
+  line-height: 1.1;
+  margin-bottom: var(--spacing-sm);
+}
+#about {
+  scroll-margin-top: 140px;
+}
+
+/* CTA button */
+.cta-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 0.7rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  background: linear-gradient(45deg, #ed6a5a, #6e8aa2, #482622, #ac3a2b);
+  background-size: 400% 400%;
+  color: #fff;
+  text-decoration: none;
+  animation: hologramShift 7s ease infinite;
+  box-shadow: 0 8px 32px rgba(255, 0, 110, 0.3);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  overflow: hidden;
+  margin-top: var(--spacing-sm);
+  width: fit-content;
+}
+.cta-button::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    from 0deg,
+    transparent,
+    rgba(170, 55, 55, 0.3),
+    transparent
+  );
+  animation: rotate 3s linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.cta-button:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 15px 40px #dd2a12(255, 0, 110, 0.5),
+    0 0 30px rgba(236, 131, 56, 0.3);
+}
+.cta-button:hover::before {
+  opacity: 1;
+}
+@keyframes rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes hologramShift {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+/* ------------------------------
+   12) PROJECT NAV BUTTONS
+------------------------------ */
+.project-nav {
+  position: static;
+  left: auto;
+  transform: none;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin: 48px auto 0;
+  max-width: var(--container-max);
+}
+.project-nav__buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+}
+.btn--pill {
+  position: relative;
+  display: inline-block;
+  padding: 0.6rem 1.4rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #ed6a5a, #f28d7d);
+  color: #fff;
+  font-weight: 500;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease,
+    background-position 0.4s ease;
+  background-size: 200% 100%;
+  background-position: left center;
+  will-change: transform;
+  box-shadow: 0 4px 12px rgba(237, 106, 90, 0.3);
+  overflow: hidden;
+}
+.btn--pill:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 8px 20px rgba(237, 106, 90, 0.4);
+  background-position: right center;
+}
+.btn--pill:active {
+  transform: translateY(0) scale(0.97);
+  box-shadow: 0 3px 8px rgba(237, 106, 90, 0.3);
+}
+.btn--pill::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(255, 255, 255, 0) 80%
+  );
+  transform: skewX(-20deg);
+  transition: left 0.5s ease;
+}
+.btn--pill:hover::before {
+  left: 130%;
+}
+.btn--prev {
+  padding-left: 2.4rem;
+}
+.btn--next {
+  padding-right: 2.4rem;
+}
+.btn--prev::after,
+.btn--next::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1rem;
+  height: 1rem;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 24 24'%3E%3Cpath d='M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z'/%3E%3C/svg%3E");
+  opacity: 0.9;
+  transition: transform 0.3s ease, opacity 0.25s ease;
+}
+.btn--prev::after {
+  left: 0.9rem;
+}
+.btn--next::after {
+  right: 0.9rem;
+  transform: translateY(-50%) rotate(180deg);
+}
+.btn--prev:hover::after {
+  transform: translate(-5px, -50%);
+  opacity: 1;
+}
+.btn--next:hover::after {
+  transform: translate(5px, -50%) rotate(180deg);
+  opacity: 1;
+}
+
+/* ------------------------------
+   13) FOOTER
+------------------------------ */
+footer {
+  background: #1a1a1a;
+  color: #fff;
+  padding: 60px 0 40px;
+  margin-top: 4rem;
+}
+.footer-container {
+  margin-top: 80px;
+  max-width: var(--container-max);
+  padding: 0 2rem;
+  margin-inline: auto;
+}
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+.footer-name {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: var(--spacing-sm);
+  letter-spacing: -0.02em;
+}
+.footer-description {
+  font-size: 1.1rem;
+  color: #b0b0b0;
+  line-height: 1.6;
+  max-width: 600px;
+  margin-bottom: var(--spacing-lg);
+}
+.social-icons {
+  display: flex;
+  list-style: none;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-lg);
+}
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border: 2px solid var(--primary-color);
+  border-radius: 50%;
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.social-link::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--primary-color);
+  transform: scale(0);
+  transition: transform 0.3s ease;
+  border-radius: 50%;
+  z-index: 1;
+}
+.social-link:hover::before {
+  transform: scale(1);
+}
+.social-link:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(237, 106, 90, 0.3);
+}
+.social-link svg {
+  width: 24px;
+  height: 24px;
+  fill: var(--primary-color);
+  transition: fill 0.3s ease;
+  position: relative;
+  z-index: 2;
+}
+.social-link:hover svg {
+  fill: #fff;
+}
+.footer-copyright {
+  color: #666;
+  font-size: 14px;
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid #333;
+}
+
+/* ------------------------------
+   14) FULL-BLEED MEDIA (scoped)
+------------------------------ */
+.media--bleed {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: 12px;
+  transition: margin 0.4s ease, border-radius 0.4s ease, box-shadow 0.4s ease;
+}
+.media--bleed img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.6s ease, filter 0.4s ease;
+}
+.media--bleed .caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 12px 16px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  transform: translateY(100%);
+  transition: transform 0.35s ease;
+  font-size: 0.95rem;
+}
+.media--bleed:hover,
+.media--bleed:focus-within {
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  width: 100vw;
+  border-radius: 0;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  z-index: 2;
+}
+.media--bleed:hover img,
+.media--bleed:focus-within img {
+  transform: scale(1.08);
+  filter: brightness(0.85);
+}
+.media--bleed:hover .caption,
+.media--bleed:focus-within .caption {
+  transform: translateY(0);
+}
+@media (max-width: 768px) {
+  .media--bleed {
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    width: 100vw;
+    border-radius: 0;
+  }
+  .media--bleed:active img {
+    transform: scale(1.04);
+    filter: brightness(0.9);
+  }
+  .media--bleed .caption {
+    font-size: 0.875rem;
+    padding: 10px 12px;
+  }
+}
+
+/* ------------------------------
+   15) CSS LIGHTBOX (checkbox hack)
+------------------------------ */
+.lb-toggle ~ .lightbox {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px); /* Safari */
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.98);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+  z-index: 9990;
+}
+.lb-toggle:checked ~ .lightbox {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+.lightbox__backdrop {
+  position: absolute;
+  inset: 0;
+  display: block;
+  cursor: zoom-out;
+}
+.lightbox__stage {
+  position: relative;
+  max-width: min(95vw, 1200px);
+  max-height: 90vh;
+  margin: 0 2vw;
+}
+.lightbox__stage img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 80vh;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+.lightbox__caption {
+  text-align: center;
+  color: #fff;
+  font-size: 0.95rem;
+  margin-top: 0.75rem;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+.lightbox__close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 1.4rem;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.lightbox__close:hover {
+  transform: scale(1.05);
+  background: rgba(0, 0, 0, 0.7);
+}
+
+/* zamkni scroll při jakémkoliv otevřeném lightboxu (globálně) */
+html:has(.lb-toggle:checked) {
+  overflow: hidden;
+}
+
+.media__link {
+  cursor: zoom-in;
+}
+.media__link:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 4px;
+}
+@media (max-width: 768px) {
+  .lightbox__stage img {
+    max-height: 70vh;
+  }
+  .lightbox__caption {
+    font-size: 0.875rem;
+  }
+}
+
+/* ------------------------------
+   16) PREMIUM – konkrétní sekce
+------------------------------ */
+.premium-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: clamp(0.6rem, 1.4vw, 1rem);
+  row-gap: 1rem;
+  align-items: center;
+}
+.media--premium {
+  margin: 0;
+}
+.media--premium .premium-thumb {
+  width: 164px;
+  height: 236px;
+  object-fit: cover;
+  border-radius: 6px;
+  display: block;
+}
+.media--premium .caption--premium {
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 0.5rem;
+  text-align: left;
+}
+.premium-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.premium-title {
+  margin: 0 0 0.25rem 0;
+}
+.premium-points.card {
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  background: #fff;
+}
+.premium-points ul {
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+}
+.premium-points li {
+  list-style: none;
+  position: relative;
+  padding-left: 1.5rem;
+  line-height: 1.5;
+}
+.premium-points li::marker {
+  content: "";
+}
+.premium-points li::before {
+  content: "➜";
+  position: absolute;
+  left: 0;
+  top: 0.1em;
+  color: var(--primary-color);
+  font-weight: 700;
+  font-size: 1rem;
+}
+.premium-points li + li {
+  margin-top: 0.5rem;
+}
+@media (max-width: 900px) {
+  .premium-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  .media--premium .premium-thumb {
+    width: 100%;
+    height: auto;
+    max-width: 320px;
+  }
+}
+.margin {
+  margin-top: 7rem;
+}
+
+/* NAV SHOWCASE – menší náhled jen na stránce */
+#nav-showcase .shot--secondary .media__link {
+  max-width: 720px;
+  margin-inline: auto;
+  aspect-ratio: 16/9;
+}
+#nav-showcase .shot--secondary .media__link img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #fff;
+}
+#nav-showcase .shot--secondary .caption {
+  max-width: 720px;
+  margin-inline: auto;
+}
+
+/* ------------------------------
+   17) BENTO GALLERY – MASONRY
+------------------------------ */
+.page-project #bento-gallery .bento-grid.bento-grid--masonry {
+  /* vodopád – hustěji u sebe */
+  display: block;
+  columns: 4 300px; /* 3 sloupce ~340px */
+  column-gap: 4px; /* menší mezera */
+}
+.page-project #bento-gallery .bento-grid.bento-grid--masonry .bento-item {
+  break-inside: avoid;
+  margin: 0 0 4px;
+  width: 100%;
+  height: auto;
+}
+/* neutralizuj col-* / aspect poměry uvnitř masonry */
+.page-project
+  #bento-gallery
+  .bento-grid.bento-grid--masonry
+  .bento-item[class*="col-"] {
+  all: unset;
+  display: block;
+  break-inside: avoid;
+  margin: 0 0 8px;
+}
+.page-project #bento-gallery .bento-card {
+  background: var(--bg-light);
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.page-project #bento-gallery .bento-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+}
+.page-project #bento-gallery .bento-media {
+  aspect-ratio: auto;
+}
+.page-project #bento-gallery .bento-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* užší padding kontejneru jen tady (volitelné) */
+.page-project #bento-gallery .container {
+  padding-inline: 0.75rem;
+}
+
+/* breakpointy */
+@media (max-width: 1100px) {
+  .page-project #bento-gallery .bento-grid.bento-grid--masonry {
+    columns: 2 300px;
+    column-gap: 8px;
+  }
+  .page-project #bento-gallery .bento-grid.bento-grid--masonry .bento-item {
+    margin-bottom: 8px;
+  }
+}
+@media (max-width: 640px) {
+  .page-project #bento-gallery .bento-grid.bento-grid--masonry {
+    columns: 1;
+    column-gap: 0;
+  }
+  .page-project #bento-gallery .bento-grid.bento-grid--masonry .bento-item {
+    margin-bottom: 6px;
+  }
+}
+
+/* ------------------------------
+   18) SITEMAP – nadpis blíž k obrázku
+------------------------------ */
+.page-project #sitemap .section-title {
+  margin-bottom: 0.35rem;
+}
+.page-project #sitemap figure.media {
+  margin-top: 0.25rem;
+  margin-bottom: 0;
+}
+.page-project #sitemap .media {
+  gap: 0.4rem;
+} /* menší mezera mezi obrázkem a caption */
+/* Bento: menší mezera mezi sloupci (a srovnaná vertikální) */
+.page-project #bento-gallery .bento-grid.bento-grid--masonry {
+  column-gap: 4px; /* ← zmenši klidně na 2px nebo 0px */
+}
+.page-project #bento-gallery .bento-grid.bento-grid--masonry .bento-item {
+  margin-bottom: 4px; /* drží stejný rytmus i vertikálně */
+}
+
+/* stejná hustota i na středním breakpointu */
+@media (max-width: 1100px) {
+  .page-project #bento-gallery .bento-grid.bento-grid--masonry {
+    column-gap: 4px;
+  }
+  .page-project #bento-gallery .bento-grid.bento-grid--masonry .bento-item {
+    margin-bottom: 4px;
+  }
+}
+
+/* ------------------------------
+   19) CONTACT PAGE (FORM)
+------------------------------ */
+.page-contact .contact-wrap {
+  max-width: 860px;
+  margin: 3rem auto;
+}
+
+.contact-intro h1 {
+  font-size: clamp(1.8rem, 2.5vw, 2.4rem);
+  margin-bottom: 0.5rem;
+}
+
+.contact-card {
+  margin-top: 1.5rem;
+  padding: clamp(1rem, 3vw, 2rem);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  box-shadow: var(--card-shadow);
+}
+
+.form .grid {
+  display: grid;
+  gap: 1rem;
+}
+@media (min-width: 700px) {
+  .form .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.field {
+  display: grid;
+  gap: 0.45rem;
+}
+.field label {
+  font-weight: 600;
+  color: var(--text-dark);
+}
+.field input,
+.field textarea {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--field-border);
+  background: #fff;
+  border-radius: 12px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.05s;
+}
+
+/* Fallback focus stín pro prohlížeče bez color-mix() */
+.field input:focus,
+.field textarea:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(237, 106, 90, 0.2);
+}
+
+/* Pokud je k dispozici color-mix(), použij hezčí variantu */
+@supports (color: color-mix(in oklab, black, white)) {
+  .field input:focus,
+  .field textarea:focus {
+    box-shadow: 0 0 0 4px
+      color-mix(in oklab, var(--primary-color), transparent 80%);
+  }
+}
+
+/* Focus-visible na polích */
+.field input:focus-visible,
+.field textarea:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 3px;
+  box-shadow: none; /* aby se nesčítalo se shadow výše */
+}
+
+.field.checkbox {
+  display: flex;
+  align-items: start;
+  gap: 0.6rem;
+}
+.field.checkbox input {
+  inline-size: 1.1rem;
+  block-size: 1.1rem;
+  margin-top: 0.2rem;
+}
+
+.error {
+  min-height: 1.1em;
+  font-size: 0.92rem;
+  color: #dc2626;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+.btn {
+  background: var(--primary-color);
+  color: #fff;
+  border: 0;
+  padding: 0.9rem 1.2rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.06s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.12);
+}
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+.btn:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px rgba(237, 106, 90, 0.3);
+}
+
+.form-status {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+/* Honeypot bezpečně skrytý */
+.hp-field {
+  position: absolute !important;
+  left: -9999px !important;
+  opacity: 0 !important;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ------------------------------
+   20) REDUCED MOTION (A11Y)
+------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+  #cursor,
+  #cursor-follower {
+    display: none !important;
+  }
+}
+/* ==============================
+   FOTOGALERIE + LIGHTBOX
+============================== */
+.photo-section {
+  background: #0b0b0b; /* tmavé pozadí, nechá vyniknout BW fotky */
+  color: #e5e7eb;
+  padding: clamp(32px, 6vw, 80px) 0;
+}
+.photo-section .section-title {
+  font-size: clamp(24px, 3vw, 36px);
+  margin: 0 auto 24px;
+  max-width: 1200px;
+  padding: 0 16px;
+  letter-spacing: 0.02em;
+}
+
+/* --- MOZAIKA (masonry) --- */
+.gallery--masonry {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+  column-count: 1;
+  column-gap: 16px;
+}
+@media (min-width: 640px) {
+  .gallery--masonry {
+    column-count: 2;
+  }
+}
+@media (min-width: 1024px) {
+  .gallery--masonry {
+    column-count: 3;
+  }
+}
+.gallery--masonry .g-item {
+  break-inside: avoid;
+  margin: 0 0 16px;
+  background: #111;
+  border: 1px solid #222;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.gallery--masonry .g-item:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5);
+}
+.gallery--masonry img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: grayscale(100%);
+}
+
+/* --- LIGHTBOX --- */
+.lightbox[aria-hidden="true"] {
+  display: none;
+}
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.9);
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+.lb-figure {
+  margin: 0;
+  max-width: min(92vw, 1400px);
+  max-height: 86vh;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  gap: 12px;
+}
+.lb-image {
+  max-width: 100%;
+  max-height: 72vh;
+  object-fit: contain;
+  filter: grayscale(100%);
+}
+.lb-caption {
+  color: #d1d5db;
+  font-size: 14px;
+  text-align: center;
+  letter-spacing: 0.01em;
+}
+
+.lb-close,
+.lb-prev,
+.lb-next {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.45rem 0.7rem;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+  backdrop-filter: blur(4px);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.lb-close {
+  top: 16px;
+  right: 16px;
+  font-size: 28px;
+}
+.lb-prev {
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.lb-next {
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.lb-close:hover,
+.lb-prev:hover,
+.lb-next:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+.lb-close:focus,
+.lb-prev:focus,
+.lb-next:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+/* ===========================================
+   FOTO – HERO (namespacované: .photo-hero / .ph-*)
+   Typografie: panelový/kurátorský styl
+   Bez kolizí s ostatními částmi webu
+=========================================== */
+:root {
+  --ph-primary: var(--primary-color, #ed6a5a);
+}
+
+/* Sekce + kontejner */
+.photo-hero {
+  padding: clamp(40px, 8vw, 96px) 0 0;
+  background: transparent;
+  color: inherit;
+}
+.photo-hero .ph-container {
+  width: min(1200px, 92vw);
+  margin: 0 auto;
+}
+
+/* -------------------------------------------
+   Nadpis (H1) – zarovnaný vlevo, nejvyšší váha
+------------------------------------------- */
+.photo-hero .ph-title {
+  max-width: 65ch; /* stejná čtecí osa jako text */
+  margin: 0 0 0.5rem 0;
+  text-align: left;
+  font-size: clamp(34px, 4vw, 48px);
+  line-height: 1.2;
+  font-weight: 600;
+  color: var(--text-dark, #111);
+}
+
+/* -------------------------------------------
+   Kicker / podtitul – jemný řádek s ikonou
+------------------------------------------- */
+.photo-hero .ph-kicker {
+  max-width: 65ch;
+  margin: 0 0 1.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: clamp(14px, 1.4vw, 16px);
+  color: #666;
+  font-weight: 400;
+}
+.photo-hero .ph-kicker svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  color: var(--ph-primary);
+}
+
+/* -------------------------------------------
+   Prozaický text – „výstavní panel“
+------------------------------------------- */
+.photo-hero .ph-prose {
+  max-width: 65ch; /* ~65 znaků na řádek */
+  margin-left: 0;
+  margin-right: auto;
+  padding-left: 1.25rem; /* odsazení od linky */
+  border-left: 2px solid #eee; /* panelová linka */
+  font-size: clamp(16px, 1.5vw, 18px);
+  line-height: 1.75;
+  color: #333;
+  font-weight: 300;
+  text-align: left;
+}
+.photo-hero .ph-prose p {
+  margin: 0 0 1.5rem 0; /* vzduch mezi odstavci */
+}
+.photo-hero .ph-prose em {
+  font-style: italic;
+  font-weight: 400;
+  color: #111;
+}
+
+/* -------------------------------------------
+   Přístupnost: reduced motion
+------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .photo-hero * {
+    transition: none !important;
+  }
+}
+
+/* ===========================================
+   RESPONSIVE
+=========================================== */
+
+/* --- Velké tablety / menší notebooky (≤ 1024px) --- */
+@media (max-width: 1024px) {
+  .photo-hero {
+    padding-top: clamp(32px, 7vw, 72px);
+  }
+
+  .photo-hero .ph-title {
+    font-size: clamp(32px, 4.6vw, 42px);
+  }
+  .photo-hero .ph-kicker {
+    margin-bottom: 1.25rem;
+    font-size: clamp(14px, 1.8vw, 16px);
+  }
+  .photo-hero .ph-prose {
+    font-size: clamp(15.5px, 1.8vw, 17px);
+    line-height: 1.72;
+  }
+}
+
+/* --- Tablety / velké mobily (≤ 768px) --- */
+@media (max-width: 768px) {
+  .photo-hero {
+    padding-top: clamp(28px, 8vw, 56px);
+  }
+
+  .photo-hero .ph-container {
+    width: min(1000px, 94vw);
+  }
+
+  .photo-hero .ph-title {
+    font-size: clamp(28px, 6.8vw, 36px);
+    margin-bottom: 0.4rem;
+  }
+  .photo-hero .ph-kicker {
+    max-width: 60ch; /* kratší řádek pro pohodlí */
+    gap: 0.5rem;
+    font-size: clamp(14px, 2.1vw, 16px);
+  }
+  .photo-hero .ph-kicker svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .photo-hero .ph-prose {
+    max-width: 60ch;
+    border-left-width: 2px;
+    padding-left: 1.05rem;
+    font-size: clamp(15px, 2.3vw, 17px);
+    line-height: 1.7;
+  }
+  .photo-hero .ph-prose p {
+    margin-bottom: 1.35rem;
+  }
+}
+
+/* --- Telefony (≤ 480px) --- */
+@media (max-width: 480px) {
+  .photo-hero {
+    padding-top: clamp(24px, 9vw, 48px);
+  }
+
+  .photo-hero .ph-container {
+    width: min(800px, 94vw);
+  }
+
+  .photo-hero .ph-title {
+    font-size: clamp(24px, 8.5vw, 32px);
+    margin-bottom: 0.35rem;
+    letter-spacing: 0.005em; /* mikroladění čitelnosti */
+  }
+
+  .photo-hero .ph-kicker {
+    max-width: 52ch; /* ~52 znaků – top čitelnost na mobilu */
+    font-size: 14px;
+    gap: 0.45rem;
+  }
+  .photo-hero .ph-kicker svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .photo-hero .ph-prose {
+    max-width: 52ch;
+    border-left-width: 1px; /* jemnější linka */
+    padding-left: 0.9rem;
+    font-size: 15.5px;
+    line-height: 1.68;
+  }
+  .photo-hero .ph-prose p {
+    margin-bottom: 1.1rem;
+  }
+}
+
+/* --- Extra malé displeje (≤ 360px) --- */
+@media (max-width: 360px) {
+  .photo-hero .ph-prose {
+    font-size: 15px;
+    padding-left: 0.8rem;
+  }
+  .photo-hero .ph-kicker {
+    font-size: 13.5px;
+  }
+}
+/* ===========================
+   LIGHTBOX – SWIPE GALERIE
+   =========================== */
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.lightbox[aria-hidden="false"] {
+  opacity: 1;
+  visibility: visible;
+}
+
+.lb-track {
+  display: flex;
+  flex-wrap: nowrap;
+  height: 100%;
+  width: 100%;
+  transform: translateX(0);
+  transition: transform 0.35s ease;
+  touch-action: pan-y; /* povol svislý scroll, vodorovný řešíme sami */
+}
+
+.lb-slide {
+  flex: 0 0 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: min(4vw, 28px);
+  box-sizing: border-box;
+}
+
+.lb-slide img {
+  max-height: 80vh;
+  max-width: min(92vw, 1400px);
+  width: auto;
+  height: auto;
+  border-radius: 6px;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.55);
+  background: #111; /* rezerva během načítání */
+}
+
+.lb-caption {
+  color: #ddd;
+  font-size: 15px;
+  margin-top: 12px;
+  text-align: center;
+  max-width: 80ch;
+}
+
+.lb-close,
+.lb-prev,
+.lb-next {
+  position: absolute;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 32px;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  line-height: 1;
+  z-index: 2;
+  user-select: none;
+}
+
+.lb-close {
+  top: 20px;
+  right: 30px;
+}
+.lb-prev {
+  left: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.lb-next {
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.lb-close:hover,
+.lb-prev:hover,
+.lb-next:hover {
+  opacity: 0.75;
+}
+.lb-prev:active,
+.lb-next:active {
+  transform: translateY(-50%) scale(0.96);
+}
+
+@media (max-width: 640px) {
+  .lb-close {
+    top: 12px;
+    right: 16px;
+    font-size: 28px;
+  }
+  .lb-prev {
+    left: 12px;
+  }
+  .lb-next {
+    right: 12px;
+  }
+  .lb-caption {
+    font-size: 14px;
+    margin-top: 10px;
+    padding: 0 8px;
+  }
+}
+
+/* Volitelné: kurzor pro prvky galerie (mimo lightbox) */
+.gallery .g-item {
+  cursor: zoom-in;
+}

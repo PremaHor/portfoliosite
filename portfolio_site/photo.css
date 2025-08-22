@@ -1,0 +1,313 @@
+/* ========================================
+   FOTO STRÁNKA – SCOPED NA body.page-project
+   (hero + filmstrip + swipe lightbox)
+======================================== */
+
+/* --- FOTO HERO (jen na této stránce) --- */
+body.page-project #projekt-foto-hero {
+  padding: clamp(40px, 8vw, 96px) 0 0;
+  background: transparent;
+  color: inherit;
+}
+body.page-project #projekt-foto-hero .ph-container {
+  width: min(1200px, 92vw);
+  margin: 0 auto;
+}
+body.page-project #projekt-foto-hero .hero-title {
+  font-size: clamp(2rem, 8vw, 80px);
+  margin-bottom: 1rem;
+  color: #000;
+  font-family: "Work Sans", sans-serif;
+  font-weight: 300;
+  line-height: 1.1;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 1s ease-out forwards 0.3s;
+}
+body.page-project #projekt-foto-hero .ph-kicker {
+  max-width: 65ch;
+  margin: 0 0 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: clamp(14px, 1.4vw, 16px);
+  color: #666;
+}
+
+body.page-project #projekt-foto-hero .ph-kicker svg {
+  width: 18px;
+  height: 18px;
+  color: var(--primary-color);
+}
+body.page-project #projekt-foto-hero .ph-prose {
+  max-width: 65ch;
+  margin-left: 0;
+  margin-right: auto;
+  padding-left: 1.25rem;
+  border-left: 2px solid #eee;
+  font-size: clamp(16px, 1.5vw, 18px);
+  line-height: 1.75;
+  color: #333;
+  font-weight: 300;
+  text-align: left;
+}
+@media (max-width: 1024px) {
+  body.page-project #projekt-foto-hero {
+    padding-top: clamp(32px, 7vw, 72px);
+  }
+  body.page-project #projekt-foto-hero .hero-title {
+    font-size: clamp(32px, 4.6vw, 42px);
+  }
+  body.page-project #projekt-foto-hero .ph-prose {
+    font-size: clamp(15.5px, 1.8vw, 17px);
+    line-height: 1.72;
+  }
+}
+@media (max-width: 768px) {
+  body.page-project #projekt-foto-hero {
+    padding-top: clamp(28px, 8vw, 56px);
+  }
+  body.page-project #projekt-foto-hero .hero-title {
+    font-size: clamp(28px, 6.8vw, 36px);
+    margin-bottom: 0.4rem;
+  }
+  body.page-project #projekt-foto-hero .ph-kicker {
+    font-size: clamp(14px, 2.1vw, 16px);
+  }
+  body.page-project #projekt-foto-hero .ph-prose {
+    max-width: 60ch;
+    border-left-width: 2px;
+    padding-left: 1.05rem;
+    font-size: clamp(15px, 2.3vw, 17px);
+    line-height: 1.7;
+  }
+  body.page-project #projekt-foto-hero .ph-prose p {
+    margin-bottom: 1.35rem;
+  }
+}
+@media (max-width: 480px) {
+  body.page-project #projekt-foto-hero {
+    padding-top: clamp(24px, 9vw, 48px);
+  }
+  body.page-project #projekt-foto-hero .hero-title {
+    font-size: clamp(24px, 8.5vw, 32px);
+    letter-spacing: 0.005em;
+  }
+  body.page-project #projekt-foto-hero .ph-kicker {
+    max-width: 52ch;
+    font-size: 14px;
+    gap: 0.45rem;
+  }
+  body.page-project #projekt-foto-hero .ph-prose {
+    max-width: 52ch;
+    border-left-width: 1px;
+    padding-left: 0.9rem;
+    font-size: 15.5px;
+    line-height: 1.68;
+  }
+}
+
+/* --- FOTO SEKCE + FILMSTRIP --- */
+body.page-project .photo-section {
+  margin-top: 5rem;
+  background: #0b0b0b;
+  color: #e5e7eb;
+  padding: clamp(32px, 6vw, 80px) 0;
+}
+body.page-project .photo-section .section-title {
+  font-size: clamp(24px, 3vw, 36px);
+  margin: 0 auto 24px;
+  max-width: 1200px;
+  padding: 0 16px;
+  letter-spacing: 0.02em;
+}
+
+body.page-project .gallery--filmstrip {
+  position: relative;
+  display: flex;
+  gap: 16px;
+  padding: 14px 20px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+  background: linear-gradient(#0d0d10, #0a0a0d);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 8px 24px rgba(0, 0, 0, 0.12);
+}
+body.page-project .gallery--filmstrip::-webkit-scrollbar {
+  height: 8px;
+}
+body.page-project .gallery--filmstrip::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+}
+body.page-project .gallery--filmstrip .g-item {
+  flex: 0 0 auto;
+  height: clamp(180px, 30vh, 280px);
+  scroll-snap-align: start;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: zoom-in;
+  background: #111;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+  transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
+}
+body.page-project .gallery--filmstrip .g-item img {
+  display: block;
+  height: 100%;
+  width: auto;
+  object-fit: cover;
+  filter: grayscale(100%);
+}
+body.page-project .gallery--filmstrip .g-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.22);
+  filter: saturate(1.05);
+}
+body.page-project .gallery--filmstrip.is-grabbing {
+  cursor: grabbing;
+}
+@media (max-width: 900px) {
+  body.page-project .gallery--filmstrip .g-item {
+    height: 220px;
+  }
+}
+@media (max-width: 640px) {
+  body.page-project .gallery--filmstrip .g-item {
+    height: 180px;
+  }
+}
+
+/* --- LIGHTBOX – SWIPE (scoped) --- */
+body.page-project .lightbox[aria-hidden="true"] {
+  display: none;
+}
+body.page-project .lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+  z-index: 9999;
+  overflow: hidden;
+  padding: 0; /* track je full */
+}
+body.page-project .lightbox[aria-hidden="false"] {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* zamkni scroll jen na této stránce, když je LB otevřený */
+body.page-project:has(.lightbox[aria-hidden="false"]) {
+  overflow: hidden;
+}
+
+/* swipe track a slidy */
+body.page-project .lb-track {
+  display: flex;
+  flex-wrap: nowrap;
+  height: 100%;
+  width: 100%;
+  transform: translateX(0);
+  transition: transform 0.35s ease;
+  touch-action: pan-y;
+}
+body.page-project .lb-slide {
+  flex: 0 0 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: min(4vw, 28px);
+  box-sizing: border-box;
+}
+body.page-project .lb-slide img {
+  max-height: 80vh;
+  max-width: min(92vw, 1400px);
+  width: auto;
+  height: auto;
+  border-radius: 6px;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.55);
+  background: #111;
+  filter: grayscale(100%);
+}
+body.page-project .lb-caption {
+  color: #ddd;
+  font-size: 15px;
+  margin-top: 12px;
+  text-align: center;
+  max-width: 80ch;
+}
+
+/* ovládací prvky */
+body.page-project .lb-close,
+body.page-project .lb-prev,
+body.page-project .lb-next {
+  position: absolute;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 32px;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.2s;
+  line-height: 1;
+  z-index: 2;
+  user-select: none;
+}
+body.page-project .lb-close {
+  top: 20px;
+  right: 30px;
+}
+body.page-project .lb-prev {
+  left: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+body.page-project .lb-next {
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+body.page-project .lb-close:hover,
+body.page-project .lb-prev:hover,
+body.page-project .lb-next:hover {
+  opacity: 0.75;
+}
+body.page-project .lb-prev:active,
+body.page-project .lb-next:active {
+  transform: translateY(-50%) scale(0.96);
+}
+
+@media (max-width: 640px) {
+  body.page-project .lb-close {
+    top: 12px;
+    right: 16px;
+    font-size: 28px;
+  }
+  body.page-project .lb-prev {
+    left: 12px;
+  }
+  body.page-project .lb-next {
+    right: 12px;
+  }
+  body.page-project .lb-caption {
+    font-size: 14px;
+    margin-top: 10px;
+    padding: 0 8px;
+  }
+}
+
+/* kurzor nad náhledy jen zde */
+body.page-project .gallery .g-item {
+  cursor: zoom-in;
+}
+.popis {
+  font-size: 13px;
+}
