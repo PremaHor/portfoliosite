@@ -190,7 +190,7 @@
             />
           </figure>
           <figure class="g-item" data-caption="Člověče já hraju">
-            <img src="člověče.avif" alt="Trávení volného času" loading="lazy" />
+            <img src="clovece.avif" alt="Trávení volného času" loading="lazy" />
           </figure>
           <figure class="g-item" data-caption="Psí poslání">
             <img src="psi.avif" alt="Canisterapie" loading="lazy" />
@@ -198,7 +198,7 @@
           <figure class="g-item" data-caption="Veselé Velikonoce">
             <img src="velikonoce.avif" alt="Velikonoce" loading="lazy" />
           </figure>
-          <figure class="g-item" data-caption="Co se skrývá ve straých zdech">
+          <figure class="g-item" data-caption="Co se skrývá ve starých zdech">
             <img src="monika.avif" alt="Žena s cigaretou" loading="lazy" />
           </figure>
           <figure class="g-item" data-caption="Nashledanou">
@@ -287,5 +287,119 @@
 
     <!-- Hlavní skript (dropdown, mobilní menu, cursor, lightbox) -->
     <script src="script.js" defer></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const lightbox = document.getElementById("lightbox");
+        const lightboxImg = document.querySelector(".lightbox-image");
+        const items = document.querySelectorAll(".gallery-item");
+        const btnClose = document.querySelector(".lightbox-close");
+        const btnPrev = document.querySelector(".lightbox-prev");
+        const btnNext = document.querySelector(".lightbox-next");
+        const body = document.body;
+
+        if (!items.length || !lightbox || !lightboxImg) return;
+
+        let currentIndex = 0;
+        let isChanging = false; // proti rychlému spam‑kliku
+
+        function setImage(src, alt = "Detail obrázku") {
+          return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.onload = () => {
+              lightboxImg.src = src;
+              lightboxImg.alt = alt;
+              resolve();
+            };
+            img.onerror = reject;
+            img.src = src;
+          });
+        }
+
+        async function showImage(index) {
+          if (isChanging) return;
+          isChanging = true;
+
+          const link = items[index].getAttribute("href");
+          const alt =
+            items[index].querySelector("img")?.alt || "Detail obrázku";
+
+          try {
+            await setImage(link, alt);
+            currentIndex = index;
+            lightbox.classList.add("active");
+            body.classList.add("no-scroll");
+
+            // fokus pro a11y (bez skoku stránky)
+            lightboxImg.setAttribute("tabindex", "-1");
+            try {
+              lightboxImg.focus({ preventScroll: true });
+            } catch (e) {}
+          } finally {
+            // malý timeout nechá doběhnout CSS transition
+            setTimeout(() => {
+              isChanging = false;
+            }, 120);
+          }
+        }
+
+        function closeLightbox() {
+          lightbox.classList.remove("active");
+          body.classList.remove("no-scroll");
+          lightboxImg.removeAttribute("tabindex");
+          lightboxImg.src = "";
+        }
+
+        // Navěšení kliků jen jednou (prevence dvojího bublání z jiných skriptů)
+        items.forEach((item, index) => {
+          if (item.dataset.lbBound === "1") return; // už navěšeno
+          item.dataset.lbBound = "1";
+          item.addEventListener(
+            "click",
+            (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              showImage(index);
+            },
+            { passive: true }
+          );
+        });
+
+        btnClose?.addEventListener("click", (e) => {
+          e.stopPropagation();
+          closeLightbox();
+        });
+
+        btnPrev?.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const idx = (currentIndex - 1 + items.length) % items.length;
+          showImage(idx);
+        });
+
+        btnNext?.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const idx = (currentIndex + 1) % items.length;
+          showImage(idx);
+        });
+
+        // Zavřít klikem mimo obrázek
+        lightbox.addEventListener("click", (e) => {
+          if (e.target === lightbox) closeLightbox();
+        });
+
+        // Ovládání klávesnicí (jen když je otevřeno)
+        window.addEventListener("keydown", (e) => {
+          if (!lightbox.classList.contains("active")) return;
+          if (e.key === "Escape") closeLightbox();
+          if (e.key === "ArrowRight") {
+            const idx = (currentIndex + 1) % items.length;
+            showImage(idx);
+          }
+          if (e.key === "ArrowLeft") {
+            const idx = (currentIndex - 1 + items.length) % items.length;
+            showImage(idx);
+          }
+        });
+      });
+    </script>
   </body>
 </html>

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Přemysl Horák - Portfolio</title>
+    <title>Přemysl Horák - Grafika</title>
     <link rel="stylesheet" href="style.css" />
   </head>
 
@@ -58,7 +58,7 @@
                 <a role="menuitem" href="projekty-branding.html">Branding</a>
               </li>
               <li role="none">
-                <a role="menuitem" href="projekty-dtp.html">Grafický design</a>
+                <a role="menuitem" href="design.html">Grafický design</a>
               </li>
               <li role="none">
                 <a role="menuitem" href="projekty-foto.html">Fotografie</a>
@@ -110,12 +110,198 @@
           </div>
         </div>
       </section>
+      <section class="ph-gallery" id="ph-gallery">
+        <div class="ph-gallery__container">
+          <div class="ph-grid" id="ph-grid">
+            <!-- Každá karta: href = velký obrázek, img src = náhled (může být stejné) -->
+            <a class="ph-card" href="m1.webp"
+              ><img
+                class="ph-card__img"
+                src="m1.webp"
+                alt="Logo Lukovo"
+                loading="lazy"
+            /></a>
+            <a class="ph-card" href="m2.webp"
+              ><img
+                class="ph-card__img"
+                src="m2.webp"
+                alt="Vizitka Rekly"
+                loading="lazy"
+            /></a>
+            <a class="ph-card" href="m3.webp"
+              ><img
+                class="ph-card__img"
+                src="m3.webp"
+                alt="Logo přepiš vzorec"
+                loading="lazy"
+            /></a>
+            <a class="ph-card" href="m4.webp"
+              ><img
+                class="ph-card__img"
+                src="m4.webp"
+                alt="Logo Insignia"
+                loading="lazy"
+            /></a>
+            <a class="ph-card" href="m5.webp"
+              ><img
+                class="ph-card__img"
+                src="m5.webp"
+                alt="Logo Gron"
+                loading="lazy"
+            /></a>
+            <a class="ph-card" href="m6.webp"
+              ><img
+                class="ph-card__img"
+                src="m6.webp"
+                alt="DL letak ski"
+                loading="lazy"
+            /></a>
+            <a class="ph-card" href="m7.webp"
+              ><img
+                class="ph-card__img"
+                src="m7.webp"
+                alt="LogoJFD"
+                loading="lazy"
+            /></a>
+            <a class="ph-card" href="m8.webp"
+              ><img
+                class="ph-card__img"
+                src="m8.webp"
+                alt="Náhled 8"
+                loading="lazy"
+            /></a>
+            <a class="ph-card" href="m11.webp"
+              ><img
+                class="ph-card__img"
+                src="m11.webp"
+                alt="Devcity bannery"
+                loading="lazy"
+            /></a>
+            <a class="ph-card" href="m10.webp"
+              ><img
+                class="ph-card__img"
+                src="m10.webp"
+                alt="magazinovy clanek"
+                loading="lazy"
+            /></a>
+            <a class="ph-card" href="m11.webp"
+              ><img
+                class="ph-card__img"
+                src="m11.webp"
+                alt="Brožura"
+                loading="lazy"
+            /></a>
+            <a class="ph-card" href="m12.webp"
+              ><img
+                class="ph-card__img"
+                src="m12.webp"
+                alt="Marwea banner"
+                loading="lazy"
+            /></a>
+            <a class="ph-card" href="m13.webp"
+              ><img
+                class="ph-card__img"
+                src="m13.webp"
+                alt="logoECOK"
+                loading="lazy"
+            /></a>
+            <a class="ph-card" href="m14.webp"
+              ><img
+                class="ph-card__img"
+                src="m14.webp"
+                alt="plakat"
+                loading="lazy"
+            /></a>
+            <a class="ph-card" href="m15.webp"
+              ><img
+                class="ph-card__img"
+                src="m15.webp"
+                alt="Logo Lukovo"
+                loading="lazy"
+            /></a>
+            <a class="ph-card" href="m16.webp"
+              ><img
+                class="ph-card__img"
+                src="m16.webp"
+                alt="Logo Indom ibiza"
+                loading="lazy"
+            /></a>
+            <a class="ph-card" href="modboard1.webp"
+              ><img
+                class="ph-card__img"
+                src="modboard1.webp"
+                alt="moodboard farmaceutic"
+                loading="lazy"
+            /></a>
+            <a class="ph-card" href="modboard2.webp"
+              ><img
+                class="ph-card__img"
+                src="modboard2.webp"
+                alt="Moodboard pro claim"
+                loading="lazy"
+            /></a>
+            <a class="ph-card" href="modboard3.webp"
+              ><img
+                class="ph-card__img"
+                src="modboard3.webp"
+                alt="Moodboard proclaim"
+                loading="lazy"
+            /></a>
+            <a class="ph-card" href="V2.webp"
+              ><img
+                class="ph-card__img"
+                src="V2.webp"
+                alt="Brožura rezidence vyhlídka"
+                loading="lazy"
+            /></a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Lightbox ===== -->
+      <div
+        class="ph-lightbox"
+        id="ph-lightbox"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Zvětšená fotografie"
+      >
+        <button
+          class="ph-lightbox__btn ph-lightbox__btn--close"
+          type="button"
+          aria-label="Zavřít"
+        >
+          &times;
+        </button>
+        <img
+          class="ph-lightbox__img"
+          id="ph-lightbox-img"
+          alt="Detail obrázku"
+          src=""
+        />
+        <button
+          class="ph-lightbox__btn ph-lightbox__btn--prev"
+          type="button"
+          aria-label="Předchozí"
+        >
+          &#10094;
+        </button>
+        <button
+          class="ph-lightbox__btn ph-lightbox__btn--next"
+          type="button"
+          aria-label="Další"
+        >
+          &#10095;
+        </button>
+      </div>
     </main>
+
     <!-- Navigační tlačítka -->
     <div class="project-nav">
       <a class="btn--pill btn--prev" href="index.html">zpět domů</a>
       <a class="btn--pill btn--next" href="projekty-foto.html">Fotografie</a>
     </div>
+
     <!-- Footer -->
     <footer>
       <div class="footer-container">
@@ -172,6 +358,7 @@
         </div>
       </div>
     </footer>
+
     <script src="script.js"></script>
   </body>
 </html>
